@@ -1,13 +1,9 @@
 ---
 title: "Coursera Reproducible Research Project 1"
-output:
-  html_document:
+output: 
+  html_document: 
     keep_md: yes
 ---
-
-## Notes
-* download.file() if url is from github, then it would not work
-
 
 
 
@@ -31,7 +27,7 @@ if( !file.exists("activity.csv")) {
 data_raw <- read.csv("activity.csv")
 ```
 
-## What is mean total number of steps taken per day?
+## 1 What is mean total number of steps taken per day?
 1. Calculate the total number of steps taken per day
 2. Make a histogram of the total number of steps taken each day
 3. Calculate and report the mean and median of the total number of steps taken per day
@@ -44,7 +40,7 @@ hist(data_q1$total_step, breaks = 10, main = "Histogram of Total # of Steps per 
 
 ![](PA1_template_files/figure-html/question 1-1.png)<!-- -->
 
-## What is the average daily activity pattern?
+## 2 What is the average daily activity pattern?
 1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -66,7 +62,7 @@ text(x_max*1.3, y_max, labels = paste0("( ", x_max, ", ", format(y_max, digits =
 
 The interval 835 contains the max number of steps.
 
-## Imputing missing values
+## 3 Imputing missing values
 1. Calculate and report the total number of missing values in the dataset 
 2. Devise a strategy for filling in all of the missing values in the dataset
 3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
@@ -97,7 +93,7 @@ index_na_steps <- is.na(data_raw$steps)
 ```
 
 
-#### 3.1 Impute Stategy One: Mean
+#### 3.1 Imputation Stategy One: Mean
 
 ```r
 ## use mean of the interval (since the mean of the day is still NA for a few days)
@@ -141,8 +137,9 @@ text(x = median_orig, y = 15, paste0("median = ", format(median_orig, digits =2)
 
 ![](PA1_template_files/figure-html/3.0 prepare for imputation-1.png)<!-- -->
 
-When imputing using mean of each interval, the shape of distribution is similar to the original data set, but both mean and median go up compared with the original ones. Notice that the mean increases substantially, which is consistent with the "shoot up" of the tallest bar.  
-### 3.2 Inpute Stategy Two: Median
+When imputing using mean of each interval, the shape of distribution is similar to the original data set, but both mean and median go up compared with the original ones. Notice that the mean increases substantially, which is consistent with the "shoot up" of the tallest bar. 
+
+### 3.2 Imputation Stategy Two: Median
 
 ```r
 ## use median of the interval (since the median of the day is still NA for a few days)
@@ -188,7 +185,7 @@ text(x = median_orig, y = 15, paste0("median = ", format(median_orig, digits =2)
 
 When imputing using median of each interval, the shape of distribution is similar to the original data set, the median is constand and the mean goes up slightly. Since median is less affected by extreme values, it is better to use median for imputation.
 
-## Are there differences in activity patterns between weekdays and weekends?
+## 4 Are there differences in activity patterns between weekdays and weekends?
 1. Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
 

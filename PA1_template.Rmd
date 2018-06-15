@@ -39,7 +39,11 @@ data_raw <- read.csv("activity.csv")
 data_q1 <- data_raw %>% group_by(date) %>% summarise(total_step = sum(steps, na.rm = TRUE))
 hist(data_q1$total_step, breaks = 10, main = "Histogram of Total # of Steps per Day", xlab = "# of Steps")
 
+mean_step <- format(mean(data_q1$total_step), digits = 2)
+median_step <- median(data_q1$total_step)
 ```
+
+The mean and median of the total number of steps per day are `r mean_step` and `r median_step`, respectively.
 
 ## 2 What is the average daily activity pattern?
 1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)

@@ -40,6 +40,13 @@ hist(data_q1$total_step, breaks = 10, main = "Histogram of Total # of Steps per 
 
 ![](PA1_template_files/figure-html/question 1-1.png)<!-- -->
 
+```r
+mean_step <- format(mean(data_q1$total_step), digits = 2)
+median_step <- median(data_q1$total_step)
+```
+
+The mean and median of the total number of steps per day are 9354 and 10395, respectively.
+
 ## 2 What is the average daily activity pattern?
 1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?

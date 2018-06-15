@@ -9,14 +9,13 @@ output:
 * download.file() if url is from github, then it would not work
 
 
-```{r setup, include=FALSE, fig.width = 9}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 ## Load data
 First load the data 
 
-```{r load data, message=FALSE}
+
+```r
 rm(list = ls())
 
 library(dplyr)
@@ -30,7 +29,6 @@ if( !file.exists("activity.csv")) {
 }
 
 data_raw <- read.csv("activity.csv")
-
 ```
 
 ## What is mean total number of steps taken per day?
@@ -38,19 +36,20 @@ data_raw <- read.csv("activity.csv")
 2. Make a histogram of the total number of steps taken each day
 3. Calculate and report the mean and median of the total number of steps taken per day
 
-```{r question 1}
 
+```r
 data_q1 <- data_raw %>% group_by(date) %>% summarise(total_step = sum(steps, na.rm = TRUE))
 hist(data_q1$total_step, breaks = 10, main = "Histogram of Total # of Steps per Day", xlab = "# of Steps")
-
 ```
+
+![](PA1_template_files/figure-html/question 1-1.png)<!-- -->
 
 ## What is the average daily activity pattern?
 1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
-```{r question 2}
 
+```r
 data_q2 <- data_raw %>% group_by(interval) %>% summarise(avg_step = mean(steps, na.rm = TRUE))
 
 
@@ -61,10 +60,11 @@ plot(x = data_q2$interval, y = data_q2$avg_step, main = "Average # of Steps of 5
      type = "l", xlab = "Interval", ylab = "Steps")
 points(x_max, y_max, col = "red") 
 text(x_max*1.3, y_max, labels = paste0("( ", x_max, ", ", format(y_max, digits = 4), " )" ))
-
 ```
 
-The interval `r x_max` contains the max number of steps.
+![](PA1_template_files/figure-html/question 2-1.png)<!-- -->
+
+The interval 835 contains the max number of steps.
 
 ## Imputing missing values
 1. Calculate and report the total number of missing values in the dataset 
@@ -72,7 +72,8 @@ The interval `r x_max` contains the max number of steps.
 3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
 4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
-``` {r question 3}
+
+```r
 # compute and report # of NA
 num_na_byCol <- sapply(data_raw, function(x){sum(is.na(x))})
 
@@ -83,14 +84,22 @@ if(any(index_na_byCol)) {
         cat("\n# of NA for the var '", names(data_raw)[i], "' is ", num_na_byCol[i], "\n", sep = "")
     }
 }
+```
 
+```
+## 
+## # of NA for the var 'steps' is 2304
+```
+
+```r
 # get index of rows for imputation
 index_na_steps <- is.na(data_raw$steps)
 ```
 
 
 #### 3.1 Impute Stategy One: Mean
-``` {r 3.0 prepare for imputation, fig.width = 9}
+
+```r
 ## use mean of the interval (since the mean of the day is still NA for a few days)
 data_mean <- data_raw %>% group_by(interval) %>% summarise(avg_step = mean(steps, na.rm = TRUE))
 
@@ -130,9 +139,12 @@ abline(v = median_orig, col = "blue")
 text(x = median_orig, y = 15, paste0("median = ", format(median_orig, digits =2)), col = "blue")
 ```
 
+![](PA1_template_files/figure-html/3.0 prepare for imputation-1.png)<!-- -->
+
 When imputing using mean of each interval, the shape of distribution is similar to the original data set, but both mean and median go up compared with the original ones. Notice that the mean increases substantially, which is consistent with the "shoot up" of the tallest bar.  
 ### 3.2 Inpute Stategy Two: Median
-``` {r 3.2 inpute with median, fig.width = 9}
+
+```r
 ## use median of the interval (since the median of the day is still NA for a few days)
 data_median <- data_raw %>% group_by(interval) %>% summarise(avg_step = median(steps, na.rm = TRUE))
 
@@ -172,12 +184,15 @@ abline(v = median_orig, col = "blue")
 text(x = median_orig, y = 15, paste0("median = ", format(median_orig, digits =2)), col = "blue")
 ```
 
+![](PA1_template_files/figure-html/3.2 inpute with median-1.png)<!-- -->
+
 When imputing using median of each interval, the shape of distribution is similar to the original data set, the median is constand and the mean goes up slightly. Since median is less affected by extreme values, it is better to use median for imputation.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 1. Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
-```{r}
+
+```r
 library(lattice)
 
 data_q4 <- data_raw
@@ -192,3 +207,5 @@ xyplot(avg_step ~ interval| IsWeekend, data = data_q4 ,type = "l",
        xlab = "Interval", ylab = "Number of Steps",
        layout=c(1,2))
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-1-1.png)<!-- -->

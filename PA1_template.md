@@ -135,7 +135,7 @@ abline(v = median_orig, col = "blue")
 text(x = median_orig, y = 15, paste0("median = ", format(median_orig, digits =2)), col = "blue")
 ```
 
-![](PA1_template_files/figure-html/3.0 prepare for imputation-1.png)<!-- -->
+![](PA1_template_files/figure-html/question 3.1 inpute with mean-1.png)<!-- -->
 
 When imputing using mean of each interval, the shape of distribution is similar to the original data set, but both mean and median go up compared with the original ones. Notice that the mean increases substantially, which is consistent with the "shoot up" of the tallest bar. 
 
@@ -181,7 +181,7 @@ abline(v = median_orig, col = "blue")
 text(x = median_orig, y = 15, paste0("median = ", format(median_orig, digits =2)), col = "blue")
 ```
 
-![](PA1_template_files/figure-html/3.2 inpute with median-1.png)<!-- -->
+![](PA1_template_files/figure-html/question 3.2 inpute with median-1.png)<!-- -->
 
 When imputing using median of each interval, the shape of distribution is similar to the original data set, the median is constand and the mean goes up slightly. Since median is less affected by extreme values, it is better to use median for imputation.
 
@@ -205,4 +205,4 @@ xyplot(avg_step ~ interval| IsWeekend, data = data_q4 ,type = "l",
        layout=c(1,2))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
+![](PA1_template_files/figure-html/question 4-1.png)<!-- -->

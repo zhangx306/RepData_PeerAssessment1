@@ -86,7 +86,7 @@ index_na_steps <- is.na(data_raw$steps)
 
 
 #### 3.1 Imputation Stategy One: Mean
-``` {r 3.0 prepare for imputation, fig.width = 9}
+``` {r question 3.1 inpute with mean, fig.width = 9}
 ## use mean of the interval (since the mean of the day is still NA for a few days)
 data_mean <- data_raw %>% group_by(interval) %>% summarise(avg_step = mean(steps, na.rm = TRUE))
 
@@ -129,7 +129,7 @@ text(x = median_orig, y = 15, paste0("median = ", format(median_orig, digits =2)
 When imputing using mean of each interval, the shape of distribution is similar to the original data set, but both mean and median go up compared with the original ones. Notice that the mean increases substantially, which is consistent with the "shoot up" of the tallest bar. 
 
 ### 3.2 Imputation Stategy Two: Median
-``` {r 3.2 inpute with median, fig.width = 9}
+``` {r question 3.2 inpute with median, fig.width = 9}
 ## use median of the interval (since the median of the day is still NA for a few days)
 data_median <- data_raw %>% group_by(interval) %>% summarise(avg_step = median(steps, na.rm = TRUE))
 
@@ -174,7 +174,7 @@ When imputing using median of each interval, the shape of distribution is simila
 ## 4 Are there differences in activity patterns between weekdays and weekends?
 1. Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
-```{r}
+```{r question 4}
 library(lattice)
 
 data_q4 <- data_raw
